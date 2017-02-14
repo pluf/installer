@@ -14,10 +14,12 @@ http://www.phpsetupwizard.com/license/
 =====================================================
 */
 
-//ini_set('display_errors', 'on');
-//error_reporting(E_ALL);
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
+$base_path = '/home/maso/git/pluf/demo/vendor/pluf/installer/';
 
-$base_path = str_replace('\\', '/', realpath(dirname(__FILE__))).'/';
+
+// $base_path = str_replace('\\', '/', realpath(dirname(__FILE__))).'/';
 $virtual_path = str_replace('\\', '/', 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF'])).'/';
 define('BASE_PATH', $base_path);
 define('VIRTUAL_PATH', $virtual_path);
