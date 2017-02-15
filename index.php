@@ -1,82 +1,63 @@
 <?php
-
-
+/*
+ * This file is part of Pluf Framework, a simple PHP Application Framework.
+ * Copyright (C) 2010-2020 Phoinex Scholars Co. (http://dpq.co.ir)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 ini_set('display_errors', 'on');
 error_reporting(E_ALL);
 
-require_once('install/lib/WebApplicationInstaller.class.php');
-
-WAI::setLanguage('de_DE');
-
-WAI::setStyle('install/custom/css/silverstripe.css');
-WAI::setTitle('SilverStripe CMS Installation');
-WAI::setLogo('install/custom/images/silverstripe.png');
-
-WAI::text('== Welcome to SilverStripe ==');
-WAI::text('Thanks for choosing to use SilverStripe! Please follow the instructions below to get SilverStripe installed.');
-
-WAI::dropdownField(
-	'template',
-	'Template to install:',
-	array(
-		'mysite'
-	),
-	'mysite',
-	'You can change the template or download another from the SilverStripe website after installation.'
+require 'Pluf.php';
+$cfg = array(
+        'installed_apps' => array(),
+        'middleware_classes' => array(
+                'Pluf_Middleware_Translation'
+        ),
+        'debug' => true,
+        'migrate_allow_web' => true,
+        'time_zone' => 'Europe/Berlin',
+        'encoding' => 'UTF-8',
+        'log_delayed' => true,
+        'log_handler' => 'Pluf_Log_File',
+        'log_level' => Pluf_Log::ERROR,
+        'pluf_log_file' => SRC_BASE . '/var/logs/pluf.log',
+        'languages' => array(
+                'fa',
+                'en'
+        ),
+        'template_tags' => array(
+                'now' => 'Pluf_Template_Tag_Now',
+                'cfg' => 'Pluf_Template_Tag_Cfg',
+                'spaView' => 'Template_SapMainView'
+        ),
+        'mimetypes_db' => SRC_BASE . '/etc/mime.types'
 );
 
-WAI::checkboxField('send_information', 'Send information on my webserver to SilverStripe (this is only version information, used for statistical purposes)', true, true);
-
-WAI::validateCustom('CheckPreviousInstallstion');
-
-WAI::requestDatabaseSettings(WAI::DB_MySQL, array('min_version' => 4));
-
-WAI::text('=== SilverStripe Administration Account ===');
-
-WAI::textField(
-	'admin_email',
-	'Administrator email:',
-	'',
-	'We will set up 1 administrator account for you automatically. Enter the email address and password. If you\'d rather log-in with a username instead of an email address, enter that instead.'
-);
-WAI::textField('admin_password', 'Administrator password:');
-WAI::textField('admin_first_name', 'Administrator first name:');
-WAI::textField('admin_surname', 'Administrator surname:');
-
-WAI::validateCustom('CreateAdminAccount');
-
-WAI::text('=== Development Servers ===');
-
-WAI::textareaField(
-	'development_servers',
-	'Development servers:',
-	"localhost\n127.0.0.1",
-	'SilverStripe allows you to run a site in [http://doc.silverstripe.com/doku.php?id=devmode development mode]. This shows all error messages in the web browser instead of emailing them to the administrator, and allows the database to be built without logging in as administrator. Please enter the host/domain names for servers you will be using for development.'
+$urls = array(
+        array(
+                'regex' => '#^/$#',
+                'model' => 'Installer_Views',
+                'method' => 'getIndex'
+        ),
+        array(
+                'regex' => '#^/(?P<resource>.*)$#',
+                'model' => 'Installer_Views',
+                'method' => 'getResource'
+        )
 );
 
-WAI::requirePhpConfiguration(WAI::PHP5);
-WAI::requirePhpConfiguration(WAI::GD2);
-WAI::requirePhpConfiguration(WAI::XML);
-WAI::requirePhpConfiguration(WAI::DB_MySQL);
-WAI::requirePhpConfiguration(WAI::MEMORY_ALLOCATED, array('min' => '32MB'));
-WAI::requirePhpConfiguration(WAI::NOT_DEFINED_CLASSES, array(
-	'Query',
-	'HTTPResponse'
-));
-
-WAI::requirePermission(WAI::FOLDER_EXISTS, WAI::SERVER_ROOT);
-WAI::requirePermission(WAI::FOLDER_EXISTS, 'mysite/');
-WAI::requirePermission(WAI::FOLDER_EXISTS, 'sapphire/');
-WAI::requirePermission(WAI::FOLDER_EXISTS, 'cms/');
-WAI::requirePermission(WAI::FOLDER_EXISTS, 'jsparty/');
-WAI::requirePermission(WAI::FILE_WRITE, '.htaccess');
-WAI::requirePermission(WAI::FILE_WRITE, 'mysite/_config.php');
-WAI::requirePermission(WAI::FOLDER_WRITE, 'assets/');
-WAI::requirePermission(WAI::FOLDER_WRITE, WAI::TEMPORARY_FOLDER);
-
-WAI::requireWebserverConfiguration(WAI::SERVER_SOFTWARE, array('min_version' => 'Apache/2'));
-WAI::requireWebserverConfiguration(WAI::MOD_REWRITE);
-
-WAI::dispatch();
-
-?>
+Pluf::start($cfg);
+Pluf_Dispatcher::loadControllers($urls);
+Pluf_Dispatcher::dispatch(Pluf_HTTP_URL::getAction());
