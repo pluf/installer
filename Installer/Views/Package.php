@@ -17,24 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-class Installer_Views
+class Installer_Views_Package
 {
 
-    var $spaPath = __DIR__ . '/../spa/dist';
-    
-    public static function getResource ($request, $match)
-    {
-        // Load data
-        $resPath = $this->spaPath . $match['resource'];
-        return new Pluf_HTTP_Response_File($resPath, 
-                Pluf_FileUtil::getMimeType($resPath));
-    }
-    
-    public static function getIndex ($request, $match)
-    {
-        // Load data
-        $resPath = $this->spaPath . '/index.html' ;
-        return new Pluf_HTTP_Response_File($resPath, 
-                Pluf_FileUtil::getMimeType($resPath));
-    }
 }

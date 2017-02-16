@@ -1,0 +1,25 @@
+#%RAML 1.0
+title: Installer
+version: v‍1
+baseUriParameters:
+  domain: 
+baseUri: http://{domain}/api/{version}/
+mediaType: application/json
+protocols:
+  - HTTP
+  - HTTPS
+
+resourceTypes:
+  page: !include resourceTypes/page.raml
+  item: !include resourceTypes/item.raml
+  creator: !include resourceTypes/creator.raml
+  resource: !include resourceTypes/resource.raml
+  category: !include resourceTypes/category.raml
+  binary: !include resourceTypes/binary.raml
+  
+/packages:
+  displayName: Package manager
+  /find:
+  /{id}:
+/install:
+  displayName: Run installation process.

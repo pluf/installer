@@ -19,6 +19,14 @@
 ini_set('display_errors', 'on');
 error_reporting(E_ALL);
 
+/**
+ * Migration script.
+ */
+if (version_compare(PHP_VERSION, '5.2.4', '<')) {
+    echo 'Error: You need at least PHP 5.2.4' . "\n";
+    exit(1);
+}
+
 require 'Pluf.php';
 $cfg = array(
         'installed_apps' => array(),
@@ -33,19 +41,26 @@ $cfg = array(
         'log_handler' => 'Pluf_Log_File',
         'log_level' => Pluf_Log::ERROR,
         'pluf_log_file' => SRC_BASE . '/var/logs/pluf.log',
+        'tmp_folder' => SRC_BASE . '/var/tmp',
+        'template_folders' => array(
+                __DIR__ . '/Installer/templates',
+        ),
         'languages' => array(
                 'fa',
                 'en'
         ),
         'template_tags' => array(
                 'now' => 'Pluf_Template_Tag_Now',
-                'cfg' => 'Pluf_Template_Tag_Cfg',
-                'spaView' => 'Template_SapMainView'
+                'cfg' => 'Pluf_Template_Tag_Cfg'
         ),
         'mimetypes_db' => SRC_BASE . '/etc/mime.types'
 );
 
 $urls = array(
+        array(
+                'regex' => '#^/api/v1#',
+				'sub' => include 'Installer/urls-v1.php' 
+        ),
         array(
                 'regex' => '#^/$#',
                 'model' => 'Installer_Views',
