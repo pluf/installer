@@ -1,4 +1,4 @@
-<?php
+{assign $tag1='<?php '}{$tag1|safe}
 $base = '';
 return array (
 		array (

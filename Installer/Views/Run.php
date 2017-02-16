@@ -23,7 +23,7 @@ class Installer_Views_Run
     /**
      * Install current
      *
-     * @param unknown $request            
+     * @param Pluf_HTTP_Request $request            
      * @param unknown $match            
      * @return Pluf_HTTP_Response_File
      */
@@ -31,7 +31,7 @@ class Installer_Views_Run
     {
         $messages = array();
         
-        $ctx = $request->REQUEST;
+        $ctx =  new Pluf_Template_Context_Request($request, $request->REQUEST);
         // write templates
         self::writeTemplate('/config.php', 'config.php.tmp', $ctx);
         $messages[] = 'Writ config template';
@@ -53,10 +53,10 @@ class Installer_Views_Run
      *
      * @param unknown $path            
      * @param unknown $template            
-     * @param array $contex            
+     * @param Pluf_Template_Context_Request $contex            
      * @return boolean
      */
-    private static function writeTemplate ($path, $template, $contex = array())
+    private static function writeTemplate ($path, $template, $contex = null)
     {
         $dir = dirname($_SERVER["SCRIPT_FILENAME"]);
         $dist = $dir . $path;
@@ -73,35 +73,47 @@ class Installer_Views_Run
         return true;
     }
 
+    /**
+     * 
+     * @param Pluf_Template_Context_Request $contex
+     */
     private static function createDb ($contex)
     {
-        $configPath = dirname($_SERVER["SCRIPT_FILENAME"]).'/config.php';
+        $configPath = dirname($_SERVER["SCRIPT_FILENAME"]) . '/config.php';
         Pluf::start($configPath);
         $m = new Pluf_Migration();
         $m->install();
     }
 
+    /**
+     * 
+     * @param Pluf_Template_Context_Request $contex
+     */
     private static function createUser ($contex)
     {
-//         $user = new Pluf_User();
-//         $user->login = 'admin';
-//         $user->last_name = 'admin';
-//         $user->email = 'admin@dpq.co.ir';
-//         $user->setPassword('admin');
-//         $user->administrator = true;
-//         $user->staff = true;
-//         $user->create();
-//         return $user;
+        $user = new Pluf_User();
+        $user->login = 'admin';
+        $user->last_name = 'admin';
+        $user->email = 'admin@dpq.co.ir';
+        $user->setPassword('admin');
+        $user->administrator = true;
+        $user->staff = true;
+        $user->create();
+        return $user;
     }
 
+    /**
+     * 
+     * @param Pluf_Template_Context_Request $contex
+     */
     private static function createTenant ($contex)
     {
-//         $tenant = new Pluf_Tenant();
-//         $tenant->title = 'Default Tenant';
-//         $tenant->description = 'Auto generated tenant';
-//         $tenant->subdomain = Pluf::f('tenant_default', 'www');
-//         $tenant->domain = Pluf::f('general_domain', 'digidoki.com');
-//         $tenant->create();
-//         return $tenant;
+        $tenant = new Pluf_Tenant();
+        $tenant->title = 'Default Tenant';
+        $tenant->description = 'Auto generated tenant';
+        $tenant->subdomain = Pluf::f('tenant_default', 'www');
+        $tenant->domain = Pluf::f('general_domain', 'digidoki.com');
+        $tenant->create();
+        return $tenant;
     }
 }
