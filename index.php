@@ -23,7 +23,7 @@ error_reporting(E_ALL);
  * Migration script.
  */
 if (version_compare(PHP_VERSION, '5.2.4', '<')) {
-    echo 'Error: You need at least PHP 5.2.4' . "\n";
+    echo 'Error: You need at least PHP 5.2.4' . '\n';
     exit(1);
 }
 

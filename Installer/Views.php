@@ -20,7 +20,7 @@
 class Installer_Views
 {
 
-    var $spaPath = __DIR__ . '/../spa';
+    var $spaPath = __DIR__ . '/../spa/';
 
     /**
      *
