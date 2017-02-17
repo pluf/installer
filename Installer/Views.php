@@ -21,19 +21,31 @@ class Installer_Views
 {
 
     var $spaPath = __DIR__ . '/../spa/dist';
-    
-    public static function getResource ($request, $match)
+
+    /**
+     *
+     * @param Pluf_HTTP_Request $request            
+     * @param unknown $match            
+     * @return Pluf_HTTP_Response_File
+     */
+    public function getResource ($request, $match)
     {
         // Load data
         $resPath = $this->spaPath . $match['resource'];
         return new Pluf_HTTP_Response_File($resPath, 
                 Pluf_FileUtil::getMimeType($resPath));
     }
-    
-    public static function getIndex ($request, $match)
+
+    /**
+     *
+     * @param Pluf_HTTP_Request $request            
+     * @param unknown $match            
+     * @return Pluf_HTTP_Response_File
+     */
+    public function getIndex ($request, $match)
     {
         // Load data
-        $resPath = $this->spaPath . '/index.html' ;
+        $resPath = $this->spaPath . '/index.html';
         return new Pluf_HTTP_Response_File($resPath, 
                 Pluf_FileUtil::getMimeType($resPath));
     }
