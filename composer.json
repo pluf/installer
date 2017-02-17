@@ -13,5 +13,6 @@
     "prefer-stable": true,
     "require": {
     	"pluf/core": "2.*"
-    }
+    },
+    "include-path": ["."]
 }
