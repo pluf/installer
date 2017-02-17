@@ -137,7 +137,7 @@ return array(
 	 * این صورت مسیرهای بعدی دنبال می‌شود.
 	 *}
 	'template_folders' => array(
-	        SRC_BASE . '/src/templates',
+	        SRC_BASE . '/templates',
 	        PLUF_BASE . '/SaaS/templates',
 	        PLUF_BASE . '/Seo/templates',
 	),
