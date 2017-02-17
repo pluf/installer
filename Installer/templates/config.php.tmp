@@ -1,0 +1,206 @@
+{assign $tag1='<?php '}{$tag1|safe}
+return array(
+	{* ***************************************************************************
+	General infomration of the system.
+	*************************************************************************** *}
+	'general_domain' => '{$domain}',
+	'general_admin_email' => array('{$adminEmail}'),
+	{* Installed modules *}
+	'installed_apps' => array({foreach $apps as $app}'{$app}',{/foreach}),
+	{* Middlewares *}
+	'middleware_classes' => array(
+        // 'Pluf_Middleware_Csrf',
+        'Pluf_Middleware_Session',
+        'Pluf_Middleware_Translation',
+        // Tenant loading
+        'Pluf_Middleware_TenantEmpty',
+        'Pluf_Middleware_TenantFromHeader',
+        'Pluf_Middleware_TenantFromDomain',
+        // 'Pluf_Middleware_TenantFromRequestMatch',
+        // 'Pluf_Middleware_TenantFromSession',
+        'Pluf_Middleware_TenantFromConfig',
+        'Seo_Middleware_Spa',
+        'Pluf_Middleware_Api'
+	),
+	{* Debug mode *}{if $debug}'debug' => true,{/if}
+	
+	{* ****************************************************************************************
+	 * مسیر ذخیره فایل‌های آپلود شده برای کانتنت‌ها
+	 **************************************************************************************** *}
+	'upload_path' => SRC_BASE . '/tenant',
+	'time_zone' => 'Europe/Berlin',
+	'encoding' => 'UTF-8',
+	{* ****************************************************************************************
+	 * Security section
+	 **************************************************************************************** *}{*
+	 * یک رشته تصادفی بلند به عنوان کلید اصلی سیستم تعیین می‌شود این کلید برای
+	 * کارهای امنیتی سیستم استفاده می‌شود و باید به شکل امنی ایجاد شده باشد. یک روش
+	 * ساده برای ایجاد این کلید استفاده از دستور زیر در سیستم‌عامل لینوکس است.
+	 *
+	 * dd if=/dev/urandom bs=1 count=64 2>/dev/null | base64 -w 0
+	 *}
+	'secret_key' => 'WMaTo4uv3uFl6MIl0Dm3Ek',
+	{*
+	 * زمانی که یک کاربر ایجاد می‌شود حالت آن را به صورت پیش فرض به حالت فعال تبدیل
+	 * می‌کند.
+	 *}
+	'user_signup_active' => true,
+	'user_avatar_default' => SRC_BASE . '/var/avatar.svg',
+	'user_avatra_max_size' => 2097152,
+	{*
+	 * روش‌های متفاوتی برای تعیین احراز اصالت وجود دارد. در اینجا تعیین می‌شود که
+	 * کدام روش احراز اصالت به کار گرفته شود. روش‌های تعیین شده به ترتیب در نظر
+	 * گرفته خواهند شد.
+	 *}
+	'auth_backends' => array(
+	        'Pluf_Auth_ModelBackend'
+	),
+	'pluf_use_rowpermission' => true,
+	{*
+	 * Logger section
+	 *}
+	'log_delayed' => true,
+	'log_handler' => 'Pluf_Log_File',
+	'log_level' => Pluf_Log::ERROR,
+	'pluf_log_file' => SRC_BASE . '/var/logs/pluf.log',
+	{*
+	 * ----------------------------------------------------------------------------
+	 * Data Base section
+	 * ----------------------------------------------------------------------------
+	 *}
+	{*
+	 * نوع و نسخه پایگاه داده باید تعیین شود تا اتصال به آن بدون مشکل انجام شود.
+	 * معمولا
+	 * در نرم‌افزارها از پایگاه داده MySql‌ استفاده می‌کنیم برای همین ضمانتی برای
+	 * پایگاه‌های
+	 * دیگر وجود ندارد.
+	 *}{if $db_engine==='MySQL'}
+	'db_version' => '5.5.33',
+	'db_engine' => 'MySQL',
+	'db_login' => '{$db_login}',
+	'db_password' => '{$db_password}',
+	'db_server' => '{$db_server}',
+	'db_database' => '{$db_database}',
+	'db_table_prefix' => '{$db_table_prefix}',
+	{/if}
+	{*
+	 * ----------------------------------------------------------------------------
+	 * EMail section
+	 * ----------------------------------------------------------------------------
+	 *}
+	{*
+	 * دو روش برای ارسال ایمیل در نظر گرفته شده است. در اینجا باید یکی از این روش‌ها
+	 * انتخاب شود. بسته به اینکه روش انتخاب شده چیست تنظیم‌های آن نیز متفاوت می‌شود.
+	 * روش‌های مورد حمایت عبارتند از:
+	 *
+	 * - mail
+	 * - sendmail
+	 * - smtp
+	 *
+	 * روشی که به عنوان پیش فرض استفاده می‌شود sendmail است.
+	 *}
+	'mail_backend' => 'sendmail',
+	{*
+	 * اگر روش sendmail است تنظیم‌های زیر برای آن در نظر گرفته شده است:
+	 *}
+	'mail_sendmail_path' => '/usr/bin/sendmail',
+	'sendmail_args' => '-i',
+	{*
+	 * تنظیم‌هایی که برای روش smtp در نظر گرفته شده نیز در زیر آورده شده است:
+	 *}
+	'mail_host' => 'localhost',
+	'mail_port' => 25,
+	'mail_auth' => FALSE,
+	'mail_username' => 'info@dpq.co.ir',
+	'mail_password' => 'password',
+	'mail_localhost' => 'localhost',
+	'mail_timeout' => null,
+	'mail_verp' => FALSE,
+	'mail_debug' => FALSE,
+	'mail_persist' => TRUE,
+	{*
+	 * Template Section
+	 *}
+	{*
+	 * مسیر پرونده‌های موقت جایی است که تمام داده‌هایی غیر لازم ساخته می‌شود. برای
+	 * نمونه الگوها در این مسیر سر هم شده و نمایش اصلی ایجاد می‌شود. در این مسیر
+	 * باید امکان نوشتن فراهم باشد در غیر این صورت اجرا با خطا روبرو خواهد شد.
+	 *}
+	'tmp_folder' => SRC_BASE . '/var/tmp',
+	
+	{*
+	 * در تمام مسیرهایی که در زیر تعیین می‌شود، الگوهای مناسب قرار گرفته شده و بر
+	 * اساس
+	 * آنها الگوها جستجو و یافت می‌شوند.
+	 * برای نمونه اگر الگو در مسیر اول پیدا شده به عنوان نتیجه برگردانده می‌شود در
+	 * غیر
+	 * این صورت مسیرهای بعدی دنبال می‌شود.
+	 *}
+	'template_folders' => array(
+	        SRC_BASE . '/src/templates',
+	        PLUF_BASE . '/SaaS/templates',
+	        PLUF_BASE . '/Seo/templates',
+	),
+	
+	{*
+	 * زبان‌های مورد حمایت را تعیین می‌کند که همگی به صورت سمبل تعریف می‌شوند. زبان
+	 * اصلی
+	 * اولین زبانی در نظر گرفته می‌شود که در این فهرست آمده است.
+	 *}
+	'languages' => array(
+	        'fa',
+	        'en'
+	),
+	
+	{*
+	 * تگهایی را تعیین می‌کند که علاوه بر تگ‌های استاندارد باید در زبان الگوها به
+	 * کار
+	 * گرفته شود. برای اطلاع بیشتر در مورد تگ‌ها و نحوه تعریف آنها مسیر زیر را
+	 * ببیند:
+	 *
+	 * https://github.com/phoenix-scholars/Pluf/tree/master/document
+	 *}
+	'template_tags' => array(
+	        'SaaSConfig' => 'Template_Configuration',
+	        'now' => 'Pluf_Template_Tag_Now',
+	        'cfg' => 'Pluf_Template_Tag_Cfg',
+	        'spaView' => 'Template_SapMainView'
+	),
+	{*
+	 * SaaS
+	 *}
+	'mimetypes_db' => SRC_BASE . '/etc/mime.types',
+	{*
+	 * فعال بودن لایه رایگان در سیستم را تعیین می‌کند. در صورتی که این مدل تجاری
+	 * فعال
+	 * باشد، نرم‌افزارهای بر اساس سطح دسترسی می‌توانند از نمایش‌های موجود استفاده
+	 * کنند
+	 * در غیر این صورت سیستم آنها را بلاکه می‌کند.
+	 *}
+	'freemium_enable' => true,
+	
+	{*
+	 * بالاترین سطح دسترسی در مدل فریمیوم را تعیین می‌کند. بسیاری از کاربردها مانند
+	 * ایجاد
+	 * یک تنظمی جدید تنها در بالاترین لایه نرم افزار در دسترس است.
+	 *}
+	'freemium_full' => 5,
+	
+	{*
+	 * برنامه‌های کاربردی در مخزن‌های متفاوتی قرار دارند. در این مسیر تمام
+	 * مخزن‌ها فهرست شده تا سیستم در صورت نیاز آنها را بازیابی و در اختیار
+	 * کاربران قرار دهد.
+	 *}
+	'spa_repository' => SRC_BASE . '/spa',
+	{*
+	 * Enable or disable multitenant mode.
+	 *}{if $multitenant}'multitenant' => false,{/if}
+	{*
+	 * SaaS Bank
+	 *
+	 * در فرآیند توسعه نیاز هست که فرآنید ایجاد یک پرداخت و مدیرت آن به صورت افلاین
+	 * انجام شود. با این تنظیم‌متورهای پروداخت به صورت پیش فرض به این کار می‌پردازند
+	 * و داده‌های فرضی ایجاد می‌کنند.
+	 *}{if $debug}'bank_debug' => true,{/if}
+);
+
