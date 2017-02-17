@@ -1,5 +1,5 @@
 {
-    "name": "pluf/install",
+    "name": "pluf/installer",
     "description": "Web base pluf installer package.",
     "type": "library",
     "license": "MIT",
