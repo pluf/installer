@@ -15,5 +15,18 @@
 	},
 	"include-path" : [
 		"."
+	],
+	"homepage" : "https://github.com/pluf/installer",
+	"support" : {
+		"email" : "info@webpich.com",
+		"issues" : "https://github.com/pluf/installer/issues",
+		"forum" : "https://github.com/pluf/installer",
+		"wiki" : "https://github.com/pluf/installer/wiki",
+		"source" : "https://github.com/pluf/installer"
+	},
+	"keywords" : [
+		"installer",
+		"pluf",
+		"web-application"
 	]
 }
