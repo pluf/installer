@@ -1,18 +1,19 @@
 {
-    "name": "pluf/installer",
-    "description": "Web base pluf installer package.",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Mostafa Barmshory",
-            "email": "mostafa.barmshory@dpq.co.ir"
-        }
-    ],
-    "minimum-stability": "stable",
-    "prefer-stable": true,
-    "require": {
-    	"pluf/core": "2.*"
-    },
-    "include-path": ["."]
+	"name" : "pluf/installer",
+	"description" : "Web base pluf installer package.",
+	"type" : "library",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Mostafa Barmshory",
+			"email" : "mostafa.barmshory@dpq.co.ir"
+		}
+	],
+	"minimum-stability" : "stable",
+	"prefer-stable" : true,
+	"require" : {
+		"pluf/core" : "^2.0.0"
+	},
+	"include-path" : [
+		"."
+	]
 }
