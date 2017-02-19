@@ -138,7 +138,6 @@ return array(
 	 *}
 	'template_folders' => array(
 	        SRC_BASE . '/templates',
-	        PLUF_BASE . '/SaaS/templates',
 	        PLUF_BASE . '/Seo/templates',
 	),
 	
