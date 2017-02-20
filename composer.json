@@ -1,17 +1,32 @@
 {
-    "name": "pluf/installer",
-    "description": "Web base pluf installer package.",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Mostafa Barmshory",
-            "email": "mostafa.barmshory@dpq.co.ir"
-        }
-    ],
-    "minimum-stability": "stable",
-    "prefer-stable": true,
-    "require": {
-    	"pluf/core": "2.*"
-    }
+	"name" : "pluf/installer",
+	"description" : "Web base pluf installer package.",
+	"type" : "library",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Mostafa Barmshory",
+			"email" : "mostafa.barmshory@dpq.co.ir"
+		}
+	],
+	"minimum-stability" : "stable",
+	"prefer-stable" : true,
+	"require" : {
+		"pluf/core" : "^2.0.0"
+	},
+	"include-path" : [
+		"."
+	],
+	"homepage" : "https://github.com/pluf/installer",
+	"support" : {
+		"email" : "info@webpich.com",
+		"issues" : "https://github.com/pluf/installer/issues",
+		"forum" : "https://github.com/pluf/installer",
+		"wiki" : "https://github.com/pluf/installer/wiki",
+		"source" : "https://github.com/pluf/installer"
+	},
+	"keywords" : [
+		"installer",
+		"pluf",
+		"web-application"
+	]
 }

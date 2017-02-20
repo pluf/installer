@@ -1,7 +1,8 @@
-Php Web Application Installer
-===
+# Pluf Web Application Installer
 
-My first try to build a universal web application installer.
+Pluf framework need a DBMS, configuration and URL to run. But it is hard to run Pluf for the first time. This is a full featured application to install Pluf framework.
+
+
 
 I will try to build it as generic and simple as possible.
 So it will hopefully fit every ones needs.
@@ -10,7 +11,6 @@ For testing purpose and as inspiration i will take the SilverStripe CMS install 
 If you think i missed something or do it wrong send me a message!
 
 
-License
----
+# License
 
-See [license](master/license) file.
+It is an open-source mudule and you can see [license](master/license) for more information.
