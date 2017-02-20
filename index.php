@@ -51,7 +51,8 @@ $cfg = array(
         ),
         'template_tags' => array(
                 'now' => 'Pluf_Template_Tag_Now',
-                'cfg' => 'Pluf_Template_Tag_Cfg'
+                'cfg' => 'Pluf_Template_Tag_Cfg',
+                'secretKey' => 'Installer_Template_Tag_SecretKey'
         ),
         'mimetypes_db' => SRC_BASE . '/etc/mime.types'
 );

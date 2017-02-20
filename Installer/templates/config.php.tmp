@@ -45,7 +45,7 @@ return array(
 	{* ****************************************************************************************
 	 * Security section
 	 **************************************************************************************** *}
-	'secret_key' => 'WMaTo4uv3uFl6MIl0Dm3Ek',
+	'secret_key' => '{secretKey}',
 	'user_signup_active' => true,
 	'user_avatar_default' => SRC_BASE . '/var/avatar.svg',
 	'user_avatra_max_size' => 2097152,
