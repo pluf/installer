@@ -27,11 +27,15 @@ class Installer_Views_Run
      * @param unknown $match            
      * @return Pluf_HTTP_Response_File
      */
-    public static function install ($request, $match)
+    public static function install (Pluf_HTTP_Request $request, $match)
     {
         $messages = array();
         
-        $ctx =  new Pluf_Template_Context_Request($request, $request->REQUEST);
+        $params = $request->REQUEST;
+        self::checkParamsMail($params);
+        self::checkParamsDb($params);
+        
+        $ctx =  new Pluf_Template_Context_Request($request, $params);
         // write templates
         self::writeTemplate('/config.php', 'config.php.tmp', $ctx);
         $messages[] = 'Writ config template';
@@ -115,5 +119,28 @@ class Installer_Views_Run
         $tenant->domain = Pluf::f('general_domain', 'digidoki.com');
         $tenant->create();
         return $tenant;
+    }
+    
+    /**
+     * Check mail parameters
+     * @param unknown $params
+     */
+    private static function checkParamsMail(&$params){
+        if(!array_key_exists('mail_backend', $params)){
+            $params['mail_backend'] = 'mail';
+            return;
+        }
+    }
+    
+    /**
+     * Check DBMS
+     * 
+     * @param unknown $params
+     * @throws Pluf_Exception
+     */
+    private static function checkParamsDb($params){
+        if(!array_key_exists('db_engine', $params)){
+            throw new Pluf_Exception('the db_engine params is required');
+        }
     }
 }
