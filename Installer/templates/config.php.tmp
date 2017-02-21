@@ -9,16 +9,15 @@ return array(
 	'installed_apps' => array({foreach $apps as $app}'{$app}',{/foreach}),
 	{* Middlewares *}
 	'middleware_classes' => array(
-        // 'Pluf_Middleware_Csrf',
+        {if $security_csrf}'Pluf_Middleware_Csrf',{/if}
         'Pluf_Middleware_Session',
         'Pluf_Middleware_Translation',
-        // Tenant loading
-        'Pluf_Middleware_TenantEmpty',
-        'Pluf_Middleware_TenantFromHeader',
-        'Pluf_Middleware_TenantFromDomain',
-        // 'Pluf_Middleware_TenantFromRequestMatch',
-        // 'Pluf_Middleware_TenantFromSession',
-        'Pluf_Middleware_TenantFromConfig',
+        {if $multitenant}{* Tenant loading *}
+	        'Pluf_Middleware_TenantEmpty',
+	        'Pluf_Middleware_TenantFromHeader',
+	        'Pluf_Middleware_TenantFromDomain',
+	        'Pluf_Middleware_TenantFromConfig',
+        {/if}
         'Seo_Middleware_Spa',
         'Pluf_Middleware_Api'
 	),
@@ -107,7 +106,10 @@ return array(
 	 *  In the multi-tenancy mode, you are able to manage several sites at a
 	 * single installation. This is verty usefull in SaaS to rent tenants.
 	 ******************************************************************************* *}
-	 {if $multitenant}'multitenant' => true,{/if}
+	 {if $multitenant}
+	 	'tenant_default' => 'www',
+	 	'multitenant' => true,
+	 {/if}
 	{* *******************************************************************************
 	 * Bank
 	 *
