@@ -16,6 +16,7 @@ return array(
 	        'Pluf_Middleware_TenantEmpty',
 	        'Pluf_Middleware_TenantFromHeader',
 	        'Pluf_Middleware_TenantFromDomain',
+	        'Pluf_Middleware_TenantFromSubDomain',
 	        'Pluf_Middleware_TenantFromConfig',
         {/if}
         'Seo_Middleware_Spa',
