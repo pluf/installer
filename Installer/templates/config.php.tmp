@@ -19,8 +19,7 @@ return array(
 	        'Pluf_Middleware_TenantFromSubDomain',
 	        'Pluf_Middleware_TenantFromConfig',
         {/if}
-        'Seo_Middleware_Spa',
-        'Pluf_Middleware_Api'
+        'Seo_Middleware_Spa'
 	),
 	{* Debug mode *}{if $debug}'debug' => true,{/if}
 	{* *******************************************************************************
