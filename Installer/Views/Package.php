@@ -20,4 +20,20 @@
 class Installer_Views_Package
 {
 
+    /**
+     * Get list of all modules
+     *
+     * @param unknown $request            
+     * @param unknown $match            
+     */
+    public function packages ($request, $match)
+    {
+        $ps = array(
+                'items' => array(
+                        
+                )
+        );
+        // response
+        return new Pluf_HTTP_Response_Json($ps);
+    }
 }
