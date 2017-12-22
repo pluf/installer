@@ -95,7 +95,7 @@ class Installer_Views_Run
      */
     private static function createUser ($contex)
     {
-        $user = new Pluf_User();
+        $user = new User();
         $user->login = 'admin';
         $user->last_name = 'admin';
         $user->email = 'admin@dpq.co.ir';
