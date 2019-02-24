@@ -11,7 +11,7 @@
 	"minimum-stability" : "stable",
 	"prefer-stable" : true,
 	"require" : {
-		"pluf/core" : "5.3.x"
+		"pluf/core" : "5.4.x"
 	},
 	"include-path" : [
 		"."
