@@ -1,8 +1,12 @@
 # Eclipse
-.project
-.settings
-/.buildpath
-/.travis.yml
+#.buildpath
+/.settings/
+.phpunit.result.cache
+.buildpath
+
+
+# Examples
+/site/tenant
 
 # Composer
 /vendor/
@@ -10,8 +14,8 @@ composer.lock
 composer-setup.php
 composer.phar
 
-# Project
-storage/tenant
+clover.xml
+/build/
 
-# KDE
-.directory
+# netbeans
+/nbproject/private/
